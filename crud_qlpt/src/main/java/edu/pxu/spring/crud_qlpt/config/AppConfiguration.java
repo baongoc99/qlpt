@@ -23,9 +23,9 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("edu.pxu.spring")
+@ComponentScan("edu.pxu.spring.crud_qlpt")
 
-@PropertySource("classpath:db.properties")
+@PropertySource("classpath:database.properties")
 @EnableTransactionManagement
 public class AppConfiguration implements WebMvcConfigurer {
 
@@ -54,7 +54,7 @@ public class AppConfiguration implements WebMvcConfigurer {
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource());
-		sessionFactory.setPackagesToScan(new String[] { "edu.pxu.spring.model" });
+		sessionFactory.setPackagesToScan(new String[] { "edu.pxu.spring.crud_qlpt.model" });
 		sessionFactory.setHibernateProperties(hibernateProperties());
 		return sessionFactory;
 	}
