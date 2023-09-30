@@ -1,23 +1,29 @@
 package edu.pxu.spring.crud_qlpt.model;
 
-import javax.persistence.*;
 import java.util.Collection;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 @Entity
+@Table(name = "department")
 public class Department {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(name = "tenphong")
-    private String tenphong;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
 
-    
-    @OneToMany(mappedBy = "phong", cascade = CascadeType.ALL)
-    private Collection<User> users;
+	@Column(name = "name")
+	private String name;
 
-    public Department() {
-    }
+	@OneToMany(mappedBy = "department")
+	private Collection<User> users;
 
 	public Long getId() {
 		return id;
@@ -27,12 +33,12 @@ public class Department {
 		this.id = id;
 	}
 
-	public String getTenphong() {
-		return tenphong;
+	public String getName() {
+		return name;
 	}
 
-	public void setTenphong(String tenphong) {
-		this.tenphong = tenphong;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Collection<User> getUsers() {
@@ -43,5 +49,15 @@ public class Department {
 		this.users = users;
 	}
 
+	public Department(Long id, String name, Collection<User> users) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.users = users;
+	}
+
+	public Department() {
+		super();
+	}
     
 }

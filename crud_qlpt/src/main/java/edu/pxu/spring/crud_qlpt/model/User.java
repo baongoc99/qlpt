@@ -1,94 +1,94 @@
 package edu.pxu.spring.crud_qlpt.model;
 
-import javax.persistence.*;
-import java.util.Date;
+import java.util.Collection;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "user")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-    @Column(name = "hoten")
-    private String hoten;
-    @Column(name = "diachi")
-    private String diachi;
-    @Column(name = "namsinh")
-    private int namsinh;
-    @Column(name = "gioitinh")
-    private boolean gioitinh;
-    @Column(name = "quequan")
-    private String quequan;
-    @ManyToOne
-    @JoinColumn(name = "vaitro_id")
-    private Role vaitro;
 
-    public User(Long id, String hoten, String diachi, int namsinh, boolean gioitinh, String quequan, Role vaitro) {
-        this.id = id;
-        this.hoten = hoten;
-        this.diachi = diachi;
-        this.namsinh = namsinh;
-        this.gioitinh = gioitinh;
-        this.quequan = quequan;
-        this.vaitro = vaitro;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_id")
+	private Long id;
 
-    public User() {
-    }
+	@Column(name = "username")
+	private String username;
 
-    public Long getId() {
-        return id;
-    }
+	@Column(name = "password")
+	private String password;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@ManyToMany
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Collection<Role> roles;
 
-    public String getHoten() {
-        return hoten;
-    }
+	@ManyToOne
+	@JoinColumn(name = "id")
+	private Department department;
 
-    public void setHoten(String hoten) {
-        this.hoten = hoten;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getDiachi() {
-        return diachi;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setDiachi(String diachi) {
-        this.diachi = diachi;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public int getNamsinh() {
-        return namsinh;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setNamsinh(int namsinh) {
-        this.namsinh = namsinh;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public boolean isGioitinh() {
-        return gioitinh;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setGioitinh(boolean gioitinh) {
-        this.gioitinh = gioitinh;
-    }
+	
+	
 
-    public String getQuequan() {
-        return quequan;
-    }
+	public User(Long id, String username, String password, Collection<Role> roles, Department department) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.roles = roles;
+		this.department = department;
+	}
 
-    public void setQuequan(String quequan) {
-        this.quequan = quequan;
-    }
+	public Collection<Role> getRoles() {
+		return roles;
+	}
 
-    public Role getVaitro() {
-        return vaitro;
-    }
+	public void setRoles(Collection<Role> roles) {
+		this.roles = roles;
+	}
 
-    public void setVaitro(Role vaitro) {
-        this.vaitro = vaitro;
-    }
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	public User() {
+		super();
+	}
 }

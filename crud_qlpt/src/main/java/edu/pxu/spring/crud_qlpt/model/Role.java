@@ -1,23 +1,29 @@
 package edu.pxu.spring.crud_qlpt.model;
 
-import javax.persistence.*;
 import java.util.Collection;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 @Entity
+@Table(name = "role")
 public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(name = "tenvaitro")
-    private String tenvaitro;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "role_id")
+	private Long id;
 
-    
-    @OneToMany(mappedBy = "vaitro", cascade = CascadeType.ALL)
-    private Collection<User> users;
+	@Column(name = "name")
+	private String name;
 
-    public Role() {
-    }
+	@OneToMany(mappedBy = "roles")
+	private Collection<User> users;
 
 	public Long getId() {
 		return id;
@@ -27,12 +33,12 @@ public class Role {
 		this.id = id;
 	}
 
-	public String getTenvaitro() {
-		return tenvaitro;
+	public String getName() {
+		return name;
 	}
 
-	public void setTenvaitro(String tenvaitro) {
-		this.tenvaitro = tenvaitro;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Collection<User> getUsers() {
@@ -41,6 +47,17 @@ public class Role {
 
 	public void setUsers(Collection<User> users) {
 		this.users = users;
+	}
+
+	public Role(Long id, String name, Collection<User> users) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.users = users;
+	}
+
+	public Role() {
+		super();
 	}
 
     
